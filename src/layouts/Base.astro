@@ -32,6 +32,31 @@ const currentPath = Astro.url.pathname;
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
+    <!-- Consent Mode v2: set defaults BEFORE GTM loads -->
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+
+      // Default: deny all until user consents
+      gtag('consent', 'default', {
+        'analytics_storage': 'denied',
+        'ad_storage': 'denied',
+        'ad_user_data': 'denied',
+        'ad_personalization': 'denied',
+        'wait_for_update': 500
+      });
+
+      // If user previously accepted, update immediately
+      if (localStorage.getItem('cookie-consent') === 'accepted') {
+        gtag('consent', 'update', {
+          'analytics_storage': 'granted',
+          'ad_storage': 'granted',
+          'ad_user_data': 'granted',
+          'ad_personalization': 'granted'
+        });
+      }
+    </script>
+
     <!-- Google Tag Manager -->
     <script is:inline>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -117,27 +142,32 @@ const currentPath = Astro.url.pathname;
         document.getElementById('mobile-menu')?.classList.toggle('hidden');
       });
 
-      // Cookie consent
+      // Cookie consent (Consent Mode v2)
+      // Default consent state is set in <head> before GTM loads.
+      // This code only handles the banner visibility and user interaction.
       (function() {
         var consent = localStorage.getItem('cookie-consent');
         if (consent === null) {
           document.getElementById('cookie-banner').style.display = 'block';
-        } else if (consent === 'accepted') {
-          window.dataLayer = window.dataLayer || [];
-          window.dataLayer.push({'event': 'consent_granted'});
         }
+        // If already accepted, consent update already happened in <head>
       })();
 
       function acceptCookies() {
         localStorage.setItem('cookie-consent', 'accepted');
         document.getElementById('cookie-banner').style.display = 'none';
-        window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push({'event': 'consent_granted'});
+        gtag('consent', 'update', {
+          'analytics_storage': 'granted',
+          'ad_storage': 'granted',
+          'ad_user_data': 'granted',
+          'ad_personalization': 'granted'
+        });
       }
 
       function declineCookies() {
         localStorage.setItem('cookie-consent', 'declined');
         document.getElementById('cookie-banner').style.display = 'none';
+        // Consent stays denied (the default set in <head>)
       }
     </script>
   </body>
