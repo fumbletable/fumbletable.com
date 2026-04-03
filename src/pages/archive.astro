@@ -1,0 +1,226 @@
+---
+import Base from '../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('posts'))
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+// Build category counts
+const categoryMap = new Map<string, number>();
+posts.forEach(post => {
+  (post.data.categories || []).forEach(cat => {
+    categoryMap.set(cat, (categoryMap.get(cat) || 0) + 1);
+  });
+});
+
+// Sort categories by count descending
+const categories = [...categoryMap.entries()]
+  .sort((a, b) => b[1] - a[1])
+  .slice(0, 8);
+---
+
+<Base title="All Posts — Fumble Table" description="Reviews, OSWR development, GM advice, and everything in between.">
+
+  <!-- Page Header -->
+  <div class="max-w-[var(--width-site)] mx-auto px-[20px] md:px-[40px] pt-8 md:pt-10 pb-5">
+    <h1 class="font-[var(--font-display)] font-black text-4xl md:text-[44px] text-ink mb-2 !leading-[1.7]">All Posts</h1>
+    <p class="font-[var(--font-body)] italic text-[17px] text-muted">Reviews, OSWR development, GM advice, and everything in between.</p>
+  </div>
+
+  <!-- Search -->
+  <div class="max-w-[var(--width-site)] mx-auto px-[20px] md:px-[40px] pt-8">
+    <div class="relative">
+      <svg class="absolute left-5 top-1/2 -translate-y-1/2 w-[18px] h-[18px] text-muted" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="8"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </svg>
+      <input
+        type="text"
+        id="search-input"
+        class="w-full font-[var(--font-body)] text-base text-ink bg-white border border-muted/20 rounded-lg py-3.5 pl-12 pr-5 outline-none focus:border-amber transition-colors placeholder:text-muted placeholder:italic"
+        placeholder="Search posts..."
+      />
+    </div>
+  </div>
+
+  <!-- Filter Tabs -->
+  <div class="max-w-[var(--width-site)] mx-auto px-[20px] md:px-[40px] pt-7 pb-10">
+    <div class="flex gap-2 overflow-x-auto scrollbar-hide pb-4 border-b border-muted/20">
+      <button class="filter-tab active" data-category="all">
+        All <span class="filter-count">{posts.length}</span>
+      </button>
+      {categories.map(([cat, count]) => (
+        <button class="filter-tab" data-category={cat.toLowerCase()}>
+          {cat} <span class="filter-count">{count}</span>
+        </button>
+      ))}
+    </div>
+  </div>
+
+  <!-- Post List -->
+  <div class="max-w-[var(--width-site)] mx-auto px-[20px] md:px-[40px] pb-16 md:pb-20" id="post-list">
+    {posts.map(post => {
+      const formattedDate = post.data.date.toLocaleDateString('en-GB', {
+        day: 'numeric', month: 'long', year: 'numeric'
+      });
+      const category = (post.data.categories || [])[0] || '';
+      const tags = post.data.tags || [];
+      const excerpt = post.data.excerpt || post.data.subtitle || post.body?.split('\n').find((l: string) => l.trim().length > 30 && !l.startsWith('#') && !l.startsWith('<'))?.trim().slice(0, 180) || '';
+
+      return (
+        <a
+          href={`/posts/${post.id}/`}
+          class="post-list-item group block"
+          data-title={post.data.title.toLowerCase()}
+          data-categories={(post.data.categories || []).map(c => c.toLowerCase()).join(',')}
+        >
+          <div class="grid grid-cols-1 sm:grid-cols-[200px_1fr] gap-4 sm:gap-7 py-7 border-b border-muted/[0.12]">
+            <div class="post-list-image">
+              {post.data.image ? (
+                <img src={post.data.image} alt="" loading="lazy" />
+              ) : (
+                <div class="placeholder">{category || 'FT'}</div>
+              )}
+            </div>
+            <div>
+              <div class="flex items-center gap-3 mb-1.5">
+                {category && <span class="font-[var(--font-body)] text-xs text-amber uppercase tracking-[0.12em] font-semibold">{category}</span>}
+                {category && <span class="w-[3px] h-[3px] rounded-full bg-muted/40"></span>}
+                <span class="font-[var(--font-body)] text-[13px] text-muted/70">{formattedDate}</span>
+              </div>
+              <h3 class="font-[var(--font-display)] font-bold text-[22px] !leading-[1.3] text-ink group-hover:text-forest transition-colors mb-2">{post.data.title}</h3>
+              {excerpt && (
+                <p class="text-[15px] text-muted leading-[1.6] line-clamp-2">{excerpt}</p>
+              )}
+              {tags.length > 0 && (
+                <div class="flex flex-wrap gap-2 mt-2.5">
+                  {tags.slice(0, 4).map(tag => (
+                    <span class="font-[var(--font-body)] text-xs text-muted bg-muted/10 px-2.5 py-0.5 rounded-xl">{tag}</span>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        </a>
+      );
+    })}
+
+    <div id="no-results" class="hidden py-16 text-center text-muted italic">
+      No posts match your search.
+    </div>
+  </div>
+
+</Base>
+
+<style>
+  .post-list-image {
+    aspect-ratio: 16 / 9;
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--color-ink);
+  }
+
+  .post-list-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .post-list-image .placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--color-muted);
+    text-align: center;
+    line-height: 1.2;
+  }
+
+  .filter-tab {
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: var(--color-muted);
+    padding: 6px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.15s;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    background: none;
+  }
+
+  .filter-tab:hover {
+    color: var(--color-wood);
+  }
+
+  .filter-tab.active {
+    color: var(--color-ink);
+    background: white;
+    border-color: rgba(138, 128, 112, 0.2);
+    font-weight: 600;
+  }
+
+  .filter-count {
+    font-size: 12px;
+    color: var(--color-muted);
+    margin-left: 2px;
+  }
+
+  .filter-tab.active .filter-count {
+    color: var(--color-amber);
+  }
+
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>
+
+<script is:inline>
+  // Search
+  const searchInput = document.getElementById('search-input');
+  const postItems = document.querySelectorAll('.post-list-item');
+  const noResults = document.getElementById('no-results');
+
+  // Filter tabs
+  const filterTabs = document.querySelectorAll('.filter-tab');
+  let activeCategory = 'all';
+
+  function filterPosts() {
+    const query = searchInput?.value?.toLowerCase() || '';
+    let visibleCount = 0;
+
+    postItems.forEach(item => {
+      const title = item.getAttribute('data-title') || '';
+      const cats = item.getAttribute('data-categories') || '';
+      const matchesSearch = !query || title.includes(query);
+      const matchesCategory = activeCategory === 'all' || cats.includes(activeCategory);
+      const visible = matchesSearch && matchesCategory;
+      item.style.display = visible ? '' : 'none';
+      if (visible) visibleCount++;
+    });
+
+    if (noResults) {
+      noResults.style.display = visibleCount === 0 ? '' : 'none';
+      noResults.classList.toggle('hidden', visibleCount > 0);
+    }
+  }
+
+  searchInput?.addEventListener('input', filterPosts);
+
+  filterTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      filterTabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      activeCategory = tab.getAttribute('data-category') || 'all';
+      filterPosts();
+    });
+  });
+</script>

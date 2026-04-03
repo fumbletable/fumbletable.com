@@ -1,0 +1,144 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+  ogImage?: string;
+}
+
+import '../styles/global.css';
+
+const { title, description = 'Fumble Table — reviews, publishing, and running the game anyway. OSR, indie RPGs, and Olde Swords Reign.', ogImage } = Astro.props;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const currentPath = Astro.url.pathname;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    {ogImage && <meta property="og:image" content={ogImage} />}
+    <meta property="og:type" content="website" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Google Tag Manager -->
+    <script is:inline>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NDTKXDLG');</script>
+    <!-- End Google Tag Manager -->
+
+    <title>{title}</title>
+  </head>
+  <body class="min-h-screen flex flex-col bg-ivory text-ink">
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NDTKXDLG"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <!-- Header -->
+    <header class="max-w-[var(--width-site)] mx-auto w-full px-[20px] md:px-[40px] py-[32px]">
+      <nav class="flex items-center justify-between">
+        <a href="/" class="logo">
+          <img src="/img/logo-on-light.png" alt="Fumble Table" class="h-8 w-auto" />
+        </a>
+
+        <!-- Desktop nav -->
+        <div class="hidden md:flex items-center gap-[32px] font-[var(--font-body)] text-[15px] text-wood">
+          <a href="/archive" class:list={["hover:text-forest transition-colors", { "text-forest font-semibold": currentPath.startsWith('/archive') }]}>Reviews</a>
+          <a href="/oswr" class:list={["hover:text-forest transition-colors", { "text-forest font-semibold": currentPath.startsWith('/oswr') }]}>The Game</a>
+          <a href="/about" class:list={["hover:text-forest transition-colors", { "text-forest font-semibold": currentPath.startsWith('/about') }]}>About</a>
+        </div>
+
+        <!-- Mobile menu button -->
+        <button id="mobile-menu-btn" class="md:hidden text-wood p-2" aria-label="Menu">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </nav>
+
+      <!-- Mobile nav -->
+      <div id="mobile-menu" class="hidden md:hidden">
+        <div class="pt-4 pb-2 flex flex-col gap-3 font-[var(--font-body)] text-[15px] text-wood">
+          <a href="/archive" class="hover:text-forest py-1">Reviews</a>
+          <a href="/oswr" class="hover:text-forest py-1">The Game</a>
+          <a href="/about" class="hover:text-forest py-1">About</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="flex-1">
+      <slot />
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-muted/20">
+      <div class="max-w-[var(--width-site)] mx-auto w-full px-[20px] md:px-[40px] py-[48px]">
+        <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+          <div class="flex items-center gap-[20px]">
+            <img src="/img/logo-on-light.png" alt="Fumble Table" class="h-6 w-auto" />
+            <span class="font-[var(--font-body)] italic text-sm text-muted">Classic soul, modern craft.</span>
+          </div>
+          <nav class="flex gap-[28px] font-[var(--font-body)] text-[14px] text-muted">
+            <a href="https://youtube.com/@fumbletable" target="_blank" rel="noopener" class="hover:text-forest transition-colors">YouTube</a>
+            <a href="https://discord.gg/KJgrHHDkSG" target="_blank" rel="noopener" class="hover:text-forest transition-colors">Discord</a>
+            <a href="/rss.xml" class="hover:text-forest transition-colors">RSS</a>
+          </nav>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Cookie Consent Banner -->
+    <div id="cookie-banner" style="display:none; position:fixed; bottom:0; left:0; right:0; z-index:9999; background:#1A1A18; color:#F5F0E8; padding:16px 24px; font-family:'Lora',Georgia,serif; font-size:14px;">
+      <div style="max-width:1080px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;">
+        <p style="margin:0; flex:1; min-width:200px;">This site uses cookies for analytics. By continuing to browse, you accept this use.</p>
+        <div style="display:flex; gap:8px;">
+          <button onclick="acceptCookies()" style="background:#2D4A2D; color:#F5F0E8; border:none; padding:8px 20px; border-radius:6px; cursor:pointer; font-family:inherit; font-size:13px;">Accept</button>
+          <button onclick="declineCookies()" style="background:transparent; color:#8A8070; border:1px solid #8A8070; padding:8px 20px; border-radius:6px; cursor:pointer; font-family:inherit; font-size:13px;">Decline</button>
+        </div>
+      </div>
+    </div>
+
+    <script is:inline>
+      document.getElementById('mobile-menu-btn')?.addEventListener('click', () => {
+        document.getElementById('mobile-menu')?.classList.toggle('hidden');
+      });
+
+      // Cookie consent
+      (function() {
+        var consent = localStorage.getItem('cookie-consent');
+        if (consent === null) {
+          document.getElementById('cookie-banner').style.display = 'block';
+        } else if (consent === 'accepted') {
+          window.dataLayer = window.dataLayer || [];
+          window.dataLayer.push({'event': 'consent_granted'});
+        }
+      })();
+
+      function acceptCookies() {
+        localStorage.setItem('cookie-consent', 'accepted');
+        document.getElementById('cookie-banner').style.display = 'none';
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({'event': 'consent_granted'});
+      }
+
+      function declineCookies() {
+        localStorage.setItem('cookie-consent', 'declined');
+        document.getElementById('cookie-banner').style.display = 'none';
+      }
+    </script>
+  </body>
+</html>

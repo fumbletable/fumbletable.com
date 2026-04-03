@@ -1,0 +1,141 @@
+---
+interface Props {
+  title: string;
+  date: Date;
+  slug: string;
+  categories?: string[];
+  excerpt?: string;
+  image?: string;
+}
+
+const { title, date, slug, categories = [], excerpt, image } = Astro.props;
+
+const formattedDate = date.toLocaleDateString('en-GB', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric'
+});
+
+const category = categories[0] || '';
+---
+
+<a href={`/posts/${slug}/`} class="post-card group block">
+  <div class="post-card-inner">
+    <div class="post-card-image">
+      {image ? (
+        <img src={image} alt="" loading="lazy" />
+      ) : (
+        <div class="placeholder">
+          <span>{category || 'FT'}</span>
+        </div>
+      )}
+    </div>
+    <div class="post-card-body">
+      {category && <div class="post-card-cat">{category}</div>}
+      <h3 class="post-card-title">{title}</h3>
+      {excerpt && <p class="post-card-excerpt">{excerpt}</p>}
+      <div class="post-card-date">{formattedDate}</div>
+    </div>
+  </div>
+</a>
+
+<style>
+  .post-card-inner {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    align-items: start;
+  }
+
+  @media (min-width: 480px) {
+    .post-card-inner {
+      grid-template-columns: 160px 1fr;
+      gap: 24px;
+    }
+  }
+
+  .post-card-image {
+    aspect-ratio: 16 / 9;
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--color-ink);
+    position: relative;
+  }
+
+  .post-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s;
+  }
+
+  .group:hover .post-card-image img {
+    transform: scale(1.02);
+  }
+
+  .placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--color-muted);
+    text-align: center;
+    padding: 8px;
+    line-height: 1.2;
+  }
+
+  .post-card-body {
+    padding-top: 2px;
+  }
+
+  .post-card-cat {
+    font-family: var(--font-body);
+    font-size: 12px;
+    color: var(--color-amber);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+
+  .post-card-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 1.25 !important;
+    color: var(--color-ink);
+    margin-bottom: 8px;
+    transition: color 0.2s;
+  }
+
+  @media (min-width: 768px) {
+    .post-card-title {
+      font-size: 20px;
+    }
+  }
+
+  .group:hover .post-card-title {
+    color: var(--color-forest);
+  }
+
+  .post-card-excerpt {
+    font-size: 14px;
+    color: var(--color-muted);
+    line-height: 1.6;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .post-card-date {
+    font-size: 12px;
+    color: rgba(138, 128, 112, 0.7);
+    margin-top: 8px;
+  }
+</style>

@@ -1,0 +1,678 @@
+---
+import Base from './Base.astro';
+
+interface Props {
+  title: string;
+  date: Date;
+  categories?: string[];
+  tags?: string[];
+  description?: string;
+  image?: string;
+  subtitle?: string;
+  video?: string;
+  verdict?: string;
+  product?: {
+    name: string;
+    creator?: string;
+    link?: string;
+    linkText?: string;
+    image?: string;
+  };
+  downloads?: {
+    name: string;
+    url: string;
+    format?: string;
+    size?: string;
+  }[];
+  relatedPosts?: {
+    title: string;
+    slug: string;
+    categories: string[];
+    image?: string;
+  }[];
+}
+
+const {
+  title, date, categories = [], tags = [], description, image,
+  subtitle, video, verdict, product, downloads, relatedPosts = []
+} = Astro.props;
+
+const formattedDate = date.toLocaleDateString('en-GB', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric'
+});
+
+const category = categories[0] || '';
+
+// Extract YouTube video ID for high-res thumbnail
+let videoId: string | null = null;
+if (video) {
+  const idMatch = video.match(/(?:embed\/|v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+  videoId = idMatch ? idMatch[1] : null;
+}
+---
+
+<Base title={`${title} — Fumble Table`} description={description || subtitle}>
+
+  <!-- Post Header -->
+  <header class="post-header">
+    {category && <div class="post-cat">{category}</div>}
+    <h1 class="post-title">{title}</h1>
+    {subtitle && <p class="post-subtitle">{subtitle}</p>}
+    <div class="post-meta">{formattedDate}</div>
+  </header>
+
+  <!-- Video Embed (if provided) -->
+  {video && videoId && (
+    <div class="video-embed">
+      <div class="video-container lite-youtube" data-video-id={videoId} data-video-src={video}>
+        <img
+          src={image || `https://img.youtube.com/vi/${videoId}/sddefault.jpg`}
+          data-hires={!image ? `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg` : undefined}
+          alt="Video thumbnail"
+          loading="eager"
+          class="lite-youtube-thumb"
+        />
+        <button class="lite-youtube-play" aria-label="Play video">
+          <svg viewBox="0 0 68 48" width="68" height="48">
+            <path d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55C3.97 2.33 2.27 4.81 1.48 7.74.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z" fill="rgba(26, 26, 24, 0.85)"/>
+            <path d="M45 24L27 14v20" fill="#F5F0E8"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  )}
+
+  <!-- Article Body -->
+  <article class="post-body prose">
+    <slot />
+  </article>
+
+  <!-- Product Card (if provided) -->
+  {product && (
+    <div class="sidebar-box">
+      <div class="product-card">
+        <div class="product-card-image">
+          {product.image ? (
+            <img src={product.image} alt={product.name} />
+          ) : (
+            <div class="cover-placeholder">{product.name}</div>
+          )}
+        </div>
+        <div class="product-card-body">
+          <div class="product-card-label">Reviewed Product</div>
+          <div class="product-card-title">{product.name}</div>
+          {product.creator && <div class="product-card-creator">{product.creator}</div>}
+          {product.link && <a href={product.link} class="product-card-link" target="_blank" rel="noopener">{product.linkText || 'View product'}</a>}
+        </div>
+      </div>
+    </div>
+  )}
+
+  <!-- Downloads (if provided) -->
+  {downloads && downloads.length > 0 && (
+    <div class="sidebar-box">
+      <div class="downloads-card">
+        <div class="downloads-card-label">Free Downloads</div>
+        <div class="download-items">
+          {downloads.map(dl => (
+            <a href={dl.url} class="download-item" target="_blank" rel="noopener">
+              <div class="download-icon">{dl.format || 'PDF'}</div>
+              <div class="download-info">
+                <div class="download-name">{dl.name}</div>
+                {dl.size && <div class="download-size">{dl.size}</div>}
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  )}
+
+  <!-- Verdict / Bottom Line -->
+  {verdict && (
+    <div class="post-bottom">
+      <div class="verdict">
+        <div class="verdict-label">Bottom Line</div>
+        <p set:html={verdict} />
+      </div>
+    </div>
+  )}
+
+  <!-- Tags -->
+  {tags.length > 0 && (
+    <div class="post-tags">
+      {tags.map(tag => (
+        <a href={`/tags/${tag.toLowerCase().replace(/\s+/g, '-')}`} class="post-tag">
+          #{tag}
+        </a>
+      ))}
+    </div>
+  )}
+
+  <!-- Related Posts -->
+  {relatedPosts.length > 0 && (
+    <section class="related">
+      <h2>More Posts</h2>
+      <div class="related-grid">
+        {relatedPosts.map(rp => (
+          <a href={`/posts/${rp.slug}/`} class="related-card group">
+            <div class="related-card-image">
+              {rp.image ? (
+                <img src={rp.image} alt="" loading="lazy" />
+              ) : (
+                <div class="placeholder">{rp.categories[0] || 'FT'}</div>
+              )}
+            </div>
+            {rp.categories[0] && <div class="related-card-cat">{rp.categories[0]}</div>}
+            <div class="related-card-title">{rp.title}</div>
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <!-- Back link -->
+  <div class="post-back">
+    <a href="/" class="font-[var(--font-display)] italic text-sm text-muted hover:text-ink transition-colors">&larr; All posts</a>
+  </div>
+
+  {video && (
+    <script is:inline>
+      // Try upgrading to maxresdefault thumbnail
+      document.querySelectorAll('.lite-youtube-thumb').forEach(img => {
+        const hires = img.dataset.hires;
+        if (!hires) return;
+        const test = new Image();
+        test.onload = () => {
+          if (test.naturalWidth > 200) img.src = hires;
+        };
+        test.src = hires;
+      });
+
+      // Lite YouTube — click thumbnail to load real player
+      document.querySelectorAll('.lite-youtube').forEach(el => {
+        el.addEventListener('click', () => {
+          const src = el.dataset.videoSrc;
+          if (!src) return;
+          const iframe = document.createElement('iframe');
+          iframe.src = src + (src.includes('?') ? '&' : '?') + 'autoplay=1';
+          iframe.setAttribute('frameborder', '0');
+          iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+          iframe.setAttribute('allowfullscreen', '');
+          iframe.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;border:none;';
+          el.textContent = '';
+          el.appendChild(iframe);
+          el.style.cursor = 'default';
+        });
+      });
+
+      // Remove the duplicate YouTube iframe from prose
+      const videoSection = document.querySelector('.video-embed');
+      if (videoSection) {
+        const proseIframe = document.querySelector('.post-body iframe');
+        if (proseIframe) {
+          const wrapper = proseIframe.parentElement;
+          proseIframe.remove();
+          if (wrapper && wrapper.tagName === 'P' && !wrapper.textContent.trim()) {
+            wrapper.remove();
+          }
+        }
+      }
+    </script>
+  )}
+
+</Base>
+
+<style>
+  /* Post Header */
+  .post-header {
+    max-width: var(--width-content);
+    margin: 0 auto;
+    padding: 40px 20px 0;
+  }
+
+  @media (min-width: 768px) {
+    .post-header {
+      padding: 40px 40px 0;
+    }
+  }
+
+  .post-cat {
+    font-family: var(--font-body);
+    font-size: 13px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-style: italic;
+    color: var(--color-amber);
+    margin-bottom: 16px;
+  }
+
+  .post-title {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 32px;
+    line-height: 1.12 !important;
+    color: var(--color-ink);
+    margin-bottom: 16px;
+  }
+
+  @media (min-width: 768px) {
+    .post-title {
+      font-size: 44px;
+    }
+  }
+
+  .post-subtitle {
+    font-family: var(--font-body);
+    font-style: italic;
+    font-size: 17px;
+    color: var(--color-wood);
+    line-height: 1.5;
+    margin-bottom: 20px;
+  }
+
+  @media (min-width: 768px) {
+    .post-subtitle {
+      font-size: 19px;
+    }
+  }
+
+  .post-meta {
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: var(--color-muted);
+    padding-bottom: 32px;
+    border-bottom: 1px solid rgba(138, 128, 112, 0.2);
+  }
+
+  /* Video Embed */
+  .video-embed {
+    max-width: var(--width-site);
+    margin: 0 auto;
+    padding: 40px 20px;
+  }
+
+  @media (min-width: 768px) {
+    .video-embed {
+      padding: 40px 40px;
+    }
+  }
+
+  .video-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+    background: var(--color-ink);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .video-container iframe {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    border: none;
+  }
+
+  .lite-youtube {
+    cursor: pointer;
+  }
+
+  .lite-youtube-thumb {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+  }
+
+  .lite-youtube-play {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    border: none;
+    background: none;
+    cursor: pointer;
+    z-index: 1;
+    transition: opacity 0.2s;
+  }
+
+  .lite-youtube:hover .lite-youtube-play {
+    opacity: 0.85;
+  }
+
+  /* Post Body */
+  .post-body {
+    max-width: var(--width-content);
+    margin: 0 auto;
+    padding: 8px 20px 0;
+  }
+
+  @media (min-width: 768px) {
+    .post-body {
+      padding: 8px 40px 0;
+    }
+  }
+
+  /* Sidebar Boxes */
+  .sidebar-box {
+    max-width: var(--width-content);
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  @media (min-width: 768px) {
+    .sidebar-box {
+      padding: 0 40px;
+    }
+  }
+
+  .product-card {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 16px rgba(26, 26, 24, 0.05);
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    margin-bottom: 32px;
+  }
+
+  .product-card-image {
+    background: var(--color-ink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+  }
+
+  .product-card-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+  }
+
+  .cover-placeholder {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--color-muted);
+    text-align: center;
+    line-height: 1.2;
+  }
+
+  .product-card-body {
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .product-card-label {
+    font-family: var(--font-body);
+    font-size: 11px;
+    color: var(--color-amber);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .product-card-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--color-ink);
+    margin-bottom: 4px;
+    line-height: 1.25;
+  }
+
+  .product-card-creator {
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: var(--color-muted);
+    margin-bottom: 10px;
+  }
+
+  .product-card-link {
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-amber);
+  }
+
+  /* Downloads */
+  .downloads-card {
+    background: var(--color-ink);
+    border-radius: 10px;
+    padding: 28px 32px;
+    margin-bottom: 48px;
+  }
+
+  .downloads-card-label {
+    font-family: var(--font-body);
+    font-size: 12px;
+    color: var(--color-amber);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+
+  .download-items {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .download-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 18px;
+    background: rgba(245, 240, 232, 0.06);
+    border-radius: 8px;
+    transition: background 0.2s;
+  }
+
+  .download-item:hover {
+    background: rgba(245, 240, 232, 0.1);
+  }
+
+  .download-icon {
+    width: 36px;
+    height: 36px;
+    background: var(--color-forest);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--color-ivory);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .download-name {
+    font-family: var(--font-body);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--color-ivory);
+    line-height: 1.3;
+  }
+
+  .download-size {
+    font-family: var(--font-body);
+    font-size: 12px;
+    color: #666;
+  }
+
+  /* Verdict */
+  .post-bottom {
+    max-width: var(--width-content);
+    margin: 0 auto;
+    padding: 0 20px 48px;
+    border-bottom: 1px solid rgba(138, 128, 112, 0.2);
+  }
+
+  @media (min-width: 768px) {
+    .post-bottom {
+      padding: 0 40px 48px;
+    }
+  }
+
+  .verdict {
+    background: rgba(45, 74, 45, 0.06);
+    border-left: 3px solid var(--color-forest);
+    padding: 24px 28px;
+    border-radius: 0 8px 8px 0;
+  }
+
+  .verdict-label {
+    font-family: var(--font-body);
+    font-size: 12px;
+    color: var(--color-forest);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  .verdict p {
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--color-ink);
+  }
+
+  /* Tags */
+  .post-tags {
+    max-width: var(--width-content);
+    margin: 0 auto;
+    padding: 32px 20px 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  @media (min-width: 768px) {
+    .post-tags {
+      padding: 32px 40px 0;
+    }
+  }
+
+  .post-tag {
+    font-size: 13px;
+    color: var(--color-muted);
+    transition: color 0.2s;
+  }
+
+  .post-tag:hover {
+    color: var(--color-ink);
+  }
+
+  /* Related Posts */
+  .related {
+    max-width: var(--width-site);
+    margin: 0 auto;
+    padding: 56px 20px 80px;
+  }
+
+  @media (min-width: 768px) {
+    .related {
+      padding: 56px 40px 80px;
+    }
+  }
+
+  .related h2 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 24px;
+    color: var(--color-forest);
+    margin-bottom: 28px;
+  }
+
+  .related-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  @media (min-width: 640px) {
+    .related-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .related-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .related-card-image {
+    aspect-ratio: 16 / 9;
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--color-ink);
+    margin-bottom: 14px;
+  }
+
+  .related-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .related-card-image .placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--color-muted);
+    text-align: center;
+    line-height: 1.2;
+  }
+
+  .related-card-cat {
+    font-family: var(--font-body);
+    font-size: 12px;
+    color: var(--color-amber);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .related-card-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--color-ink);
+    line-height: 1.3;
+    transition: color 0.2s;
+  }
+
+  .group:hover .related-card-title {
+    color: var(--color-forest);
+  }
+
+  /* Back */
+  .post-back {
+    max-width: var(--width-content);
+    margin: 0 auto;
+    padding: 32px 20px 48px;
+  }
+
+  @media (min-width: 768px) {
+    .post-back {
+      padding: 32px 40px 48px;
+    }
+  }
+</style>

@@ -1,0 +1,42 @@
+---
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts');
+  const redirects: { params: { redirect: string }; props: { target: string } }[] = [];
+
+  for (const post of posts) {
+    const from = post.data.redirect_from;
+    if (!from) continue;
+    const paths = Array.isArray(from) ? from : [from];
+    for (const path of paths) {
+      // Strip leading/trailing slashes to get the path segment
+      const clean = path.replace(/^\/|\/$/g, '');
+      if (clean) {
+        redirects.push({
+          params: { redirect: clean },
+          props: { target: `/posts/${post.id}/` }
+        });
+      }
+    }
+  }
+
+  return redirects;
+}
+
+const { target } = Astro.props;
+const fullUrl = `https://fumbletable.com${target}`;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="refresh" content={`0;url=${target}`} />
+    <link rel="canonical" href={fullUrl} />
+    <title>Redirecting...</title>
+  </head>
+  <body>
+    <p>Redirecting to <a href={target}>{target}</a>...</p>
+  </body>
+</html>

@@ -1,0 +1,47 @@
+---
+import Base from '../../layouts/Base.astro';
+import PostCard from '../../components/PostCard.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts');
+
+  const categoryMap = new Map<string, any[]>();
+  posts.forEach(post => {
+    (post.data.categories || []).forEach(cat => {
+      const slug = cat.toLowerCase().replace(/\s+/g, '-');
+      if (!categoryMap.has(slug)) categoryMap.set(slug, []);
+      categoryMap.get(slug)!.push({ ...post, categoryName: cat });
+    });
+  });
+
+  return [...categoryMap.entries()].map(([slug, posts]) => ({
+    params: { category: slug },
+    props: {
+      categoryName: posts[0].categoryName,
+      posts: posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+    }
+  }));
+}
+
+const { categoryName, posts } = Astro.props;
+---
+
+<Base title={`${categoryName} — Fumble Table`}>
+  <section class="max-w-[var(--width-site)] mx-auto px-5 md:px-10 pb-16">
+    <a href="/archive" class="text-amber hover:text-wood text-sm font-semibold mb-6 inline-block">&larr; All posts</a>
+    <h1 class="font-[var(--font-display)] font-black text-4xl text-forest mb-10">{categoryName}</h1>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      {posts.map(post => (
+        <PostCard
+          title={post.data.title}
+          date={post.data.date}
+          slug={post.id}
+          categories={post.data.categories}
+          image={post.data.image}
+        />
+      ))}
+    </div>
+  </section>
+</Base>

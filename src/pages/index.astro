@@ -1,0 +1,89 @@
+---
+import Base from '../layouts/Base.astro';
+import FeaturedPost from '../components/FeaturedPost.astro';
+import PostCard from '../components/PostCard.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('posts'))
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+const [featured, ...rest] = posts;
+const recent = rest.slice(0, 6);
+
+// Extract excerpt from body if not in frontmatter
+function getExcerpt(post: any): string | undefined {
+  if (post.data.excerpt) return post.data.excerpt;
+  if (post.data.subtitle) return post.data.subtitle;
+  const line = post.body?.split('\n').find((l: string) => l.trim().length > 30 && !l.startsWith('#') && !l.startsWith('<'));
+  return line?.trim().slice(0, 160) || undefined;
+}
+---
+
+<Base title="Fumble Table — TTRPG Reviews, Game Design & OSR">
+
+  <!-- Hero: Featured Post -->
+  <section class="max-w-[var(--width-site)] mx-auto px-[20px] md:px-[40px] pt-[20px] pb-[80px]">
+    <FeaturedPost
+      title={featured.data.title}
+      date={featured.data.date}
+      slug={featured.id}
+      categories={featured.data.categories}
+      excerpt={getExcerpt(featured)}
+      image={featured.data.image}
+    />
+  </section>
+
+  <!-- Recent Posts -->
+  <div class="max-w-[var(--width-site)] mx-auto px-[20px] md:px-[40px] pb-[32px]">
+    <div class="flex items-center gap-[20px]">
+      <h2 class="font-[var(--font-display)] font-bold text-[28px] text-forest whitespace-nowrap">Recent</h2>
+      <div class="flex-1 h-px bg-muted/25"></div>
+      <a href="/archive" class="font-[var(--font-body)] text-[14px] text-amber hover:text-wood transition-colors whitespace-nowrap">All posts</a>
+    </div>
+  </div>
+
+  <div class="max-w-[var(--width-site)] mx-auto px-[20px] md:px-[40px] pb-[80px]">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-[32px]">
+      {recent.map(post => (
+        <PostCard
+          title={post.data.title}
+          date={post.data.date}
+          slug={post.id}
+          categories={post.data.categories}
+          excerpt={getExcerpt(post)}
+          image={post.data.image}
+        />
+      ))}
+    </div>
+  </div>
+
+  <!-- OSWR Callout -->
+  <section class="bg-ink py-[80px] mb-[80px]">
+    <div class="max-w-[var(--width-site)] mx-auto px-[20px] md:px-[40px]">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-[40px] md:gap-[64px] items-center">
+        <div>
+          <div class="font-[var(--font-body)] text-[13px] tracking-[0.18em] uppercase italic text-amber mb-[16px]">Published by Fumble Table</div>
+          <h2 class="font-[var(--font-display)] font-black text-[28px] md:text-[36px] !leading-[1.15] text-ivory mb-[20px]">Olde Swords Reign</h2>
+          <p class="font-[var(--font-body)] text-[16px] text-muted leading-[1.7] mb-[28px]">A free tabletop RPG built on 5e bones with old-school danger. Print it at home, play it tonight. Written by someone who had no right to write it.</p>
+          <a href="/oswr" class="inline-block font-[var(--font-body)] text-[15px] font-semibold text-amber border-b border-amber/30 pb-[2px] hover:border-amber transition-colors">Read the rules online</a>
+        </div>
+        <div class="flex items-center justify-center py-[40px]">
+          <div class="font-[var(--font-display)] font-black text-[72px] text-ivory/[0.12] text-center leading-[0.95] tracking-[2px] select-none">OLDE<br>SWORDS<br>REIGN</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Strip -->
+  <div class="max-w-[var(--width-site)] mx-auto px-[20px] md:px-[40px] pb-[100px]">
+    <div class="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-[32px] md:gap-[56px]">
+      <h2 class="font-[var(--font-display)] font-bold text-[28px] !leading-[1.3] text-forest">A GM not burdened with an over-abundance of knowledge.</h2>
+      <div>
+        <p class="text-[16px] text-wood leading-[1.8] mb-[16px]">Fumble Table is reviews, publishing, and running the game anyway. I cover OSR, indie, grimdark, and Free League games — only things I genuinely like. I also write Olde Swords Reign, a game I had no right to write.</p>
+        <p class="text-[16px] text-wood leading-[1.8] mb-[16px]">I'm autistic, I have aphantasia, and I use AI more than any GM probably should. Classic soul, modern craft.</p>
+        <a href="/about" class="font-[var(--font-body)] text-[15px] font-semibold text-amber border-b border-amber/30 pb-[2px] hover:border-amber transition-colors">More about Fumble Table</a>
+      </div>
+    </div>
+  </div>
+
+</Base>

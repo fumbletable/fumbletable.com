@@ -1,0 +1,47 @@
+---
+import Base from '../../layouts/Base.astro';
+import PostCard from '../../components/PostCard.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts');
+
+  const tagMap = new Map<string, any[]>();
+  posts.forEach(post => {
+    (post.data.tags || []).forEach(tag => {
+      const slug = tag.toLowerCase().replace(/\s+/g, '-');
+      if (!tagMap.has(slug)) tagMap.set(slug, []);
+      tagMap.get(slug)!.push({ ...post, tagName: tag });
+    });
+  });
+
+  return [...tagMap.entries()].map(([slug, posts]) => ({
+    params: { tag: slug },
+    props: {
+      tagName: posts[0].tagName,
+      posts: posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+    }
+  }));
+}
+
+const { tagName, posts } = Astro.props;
+---
+
+<Base title={`${tagName} — Fumble Table`}>
+  <section class="max-w-[var(--width-narrow)] mx-auto px-6 py-12">
+    <a href="/tags" class="text-amber hover:text-amber-light text-sm font-medium mb-4 inline-block">&larr; All tags</a>
+    <h1 class="font-[var(--font-display)] text-4xl font-bold text-forest mb-8">#{tagName}</h1>
+
+    <div class="flex flex-col gap-8">
+      {posts.map(post => (
+        <PostCard
+          title={post.data.title}
+          date={post.data.date}
+          slug={post.id}
+          categories={post.data.categories}
+          tags={post.data.tags}
+        />
+      ))}
+    </div>
+  </section>
+</Base>

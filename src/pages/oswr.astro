@@ -1,0 +1,172 @@
+---
+import Base from '../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('posts'))
+  .filter(post => {
+    const cats = post.data.categories || [];
+    return cats.some(c => c.toLowerCase().includes('oswr') || c.toLowerCase().includes('olde swords'));
+  })
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 3);
+---
+
+<Base title="Olde Swords Reign — Fumble Table" description="Olde Swords Reign (OSWR) — a free, open-source tabletop RPG. 5e bones, old-school danger.">
+
+  <!-- Hero -->
+  <section class="max-w-[var(--width-site)] mx-auto px-[20px] md:px-[40px] pt-[40px] md:pt-[60px] pb-[60px] md:pb-[80px] text-center">
+    <div class="max-w-[640px] mx-auto">
+      <div class="font-[var(--font-body)] text-[13px] tracking-[0.18em] uppercase italic text-amber mb-[16px]">Published by Fumble Table</div>
+      <h1 class="font-[var(--font-display)] font-black text-[36px] md:text-[56px] !leading-[1.05] text-ink mb-[20px]">Olde Swords Reign</h1>
+      <div class="w-[52px] h-[3px] bg-amber mx-auto mb-[24px]"></div>
+      <p class="font-[var(--font-body)] italic text-[18px] md:text-[20px] text-wood leading-[1.5] mb-[36px]">A free tabletop RPG. 5e bones, old-school danger. Print it at home, play it tonight.</p>
+      <a href="https://fumbletable.github.io/osreign/" target="_blank" rel="noopener" class="inline-block font-[var(--font-body)] text-[16px] font-semibold text-ivory bg-forest px-[36px] py-[14px] rounded-lg hover:bg-ink transition-colors">Read the Rules Online</a>
+    </div>
+  </section>
+
+  <!-- What Is It -->
+  <div class="max-w-[var(--width-content)] mx-auto px-[20px] md:px-[40px] py-[80px]">
+    <h2 class="font-[var(--font-display)] font-bold text-[32px] text-ink mb-[24px] !leading-[1.25]">What is Olde Swords Reign?</h2>
+    <div class="text-[17px] leading-[1.8] space-y-6">
+      <p>OSWR is a tabletop roleplaying game that takes the familiar framework of 5th edition D&D and strips it back to something dangerous. Characters are fragile. Combat is deadly. Choices matter because the wrong one might kill you.</p>
+
+      <p>It started as a game written by Scott — my friend, collaborator, and six-year gaming partner. He wasn't even going to release it. He pulled it and asked me if I wanted it. I rewrote the whole thing. I'd been playing games for three years. <strong class="font-semibold">I had no right to write it. That's the point.</strong></p>
+
+      <p>The game is free. Always will be. Download the PDF, print it at home, staple it together, and play. Or read it online at <a href="https://fumbletable.github.io/osreign/" target="_blank" rel="noopener" class="text-amber border-b border-amber/30 hover:border-amber transition-colors">osreign</a> — the complete rules, searchable, on any device.</p>
+    </div>
+  </div>
+
+  <!-- Features -->
+  <section class="bg-ink py-[80px]">
+    <div class="max-w-[var(--width-site)] mx-auto px-[20px] md:px-[40px]">
+      <h2 class="font-[var(--font-display)] font-bold text-[28px] text-amber mb-[40px]">What Makes It Different</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-[32px]">
+        <div class="bg-ivory/[0.04] rounded-[10px] p-[32px]">
+          <h3 class="font-[var(--font-display)] font-bold text-[20px] text-ivory mb-2.5">Deadly by Default</h3>
+          <p class="font-[var(--font-body)] text-[15px] text-muted leading-[1.6]">No barbarian stands in a fireball. Hit points are low, healing is scarce, and danger is real. You survive by being clever, not by having enough numbers.</p>
+        </div>
+        <div class="bg-ivory/[0.04] rounded-[10px] p-[32px]">
+          <h3 class="font-[var(--font-display)] font-bold text-[20px] text-ivory mb-2.5">5e Familiar</h3>
+          <p class="font-[var(--font-body)] text-[15px] text-muted leading-[1.6]">If you know 5e, you can play OSWR in ten minutes. Same core dice, same basic structure. But the balance is different — this is fantasy, not superheroes.</p>
+        </div>
+        <div class="bg-ivory/[0.04] rounded-[10px] p-[32px]">
+          <h3 class="font-[var(--font-display)] font-bold text-[20px] text-ivory mb-2.5">Print at Home</h3>
+          <p class="font-[var(--font-body)] text-[15px] text-muted leading-[1.6]">Black and white, designed to be printed on any home printer. Staple it, fold it, play it. No barriers to entry. Free forever, Creative Commons.</p>
+        </div>
+        <div class="bg-ivory/[0.04] rounded-[10px] p-[32px]">
+          <h3 class="font-[var(--font-display)] font-bold text-[20px] text-ivory mb-2.5">Tables That Work</h3>
+          <p class="font-[var(--font-body)] text-[15px] text-muted leading-[1.6]">d66 tables that give you concrete details, not abstract concepts. Roll and know exactly what you've got. Built for GMs who think in specifics.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Get the Game -->
+  <section class="max-w-[var(--width-site)] mx-auto px-[20px] md:px-[40px] py-16 md:py-20">
+    <h2 class="font-[var(--font-display)] font-bold text-[28px] text-forest mb-8">Get the Game</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+      <div class="get-card">
+        <div class="get-card-icon bg-forest text-ivory">PDF</div>
+        <div class="get-card-title">Download PDF</div>
+        <div class="get-card-desc">Print-ready PDF. Black and white. Staple at home and play.</div>
+        <a href="#" class="get-card-link">Download</a>
+        <div class="get-card-price">Free</div>
+      </div>
+      <a href="https://fumbletable.github.io/osreign/" target="_blank" rel="noopener" class="get-card">
+        <div class="get-card-icon bg-wood text-ivory">Web</div>
+        <div class="get-card-title">Read Online</div>
+        <div class="get-card-desc">The complete rules on the OSWR companion site. Searchable, mobile-friendly.</div>
+        <div class="get-card-link">fumbletable.github.io/osreign</div>
+        <div class="get-card-price">Free</div>
+      </a>
+      <div class="get-card">
+        <div class="get-card-icon bg-ink text-ivory">Fork</div>
+        <div class="get-card-title">GitHub</div>
+        <div class="get-card-desc">Fork the rules, suggest changes, contribute. Creative Commons licensed.</div>
+        <a href="https://github.com/fumbletable/osreign" target="_blank" rel="noopener" class="get-card-link">View on GitHub</a>
+        <div class="get-card-price">Open Source</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OSWR Videos -->
+  {posts.length > 0 && (
+    <section class="max-w-[var(--width-site)] mx-auto px-[20px] md:px-[40px] pb-16 md:pb-20 border-t border-muted/20 pt-14">
+      <h2 class="font-[var(--font-display)] font-bold text-2xl text-forest mb-7">OSWR Videos</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7">
+        {posts.map(post => (
+          <a href={`/posts/${post.id}/`} class="group block">
+            <div class="aspect-video rounded-lg overflow-hidden bg-ink mb-3.5 flex items-center justify-center">
+              {post.data.image ? (
+                <img src={post.data.image} alt="" class="w-full h-full object-cover" loading="lazy" />
+              ) : (
+                <span class="font-[var(--font-display)] font-bold text-sm text-ivory/40 text-center leading-snug">OSWR</span>
+              )}
+            </div>
+            <div class="font-[var(--font-body)] text-xs text-amber uppercase tracking-[0.12em] font-semibold mb-1">OSWR</div>
+            <div class="font-[var(--font-display)] font-bold text-lg text-ink leading-snug group-hover:text-forest transition-colors">{post.data.title}</div>
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
+
+</Base>
+
+<style>
+  .get-card {
+    background: white;
+    border-radius: 10px;
+    padding: 32px;
+    box-shadow: 0 2px 16px rgba(26, 26, 24, 0.04);
+    text-align: center;
+    display: block;
+  }
+
+  .get-card-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    margin: 0 auto 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .get-card-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--color-ink);
+    margin-bottom: 8px;
+  }
+
+  .get-card-desc {
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: var(--color-muted);
+    line-height: 1.5;
+    margin-bottom: 16px;
+  }
+
+  .get-card-link {
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-amber);
+    display: block;
+  }
+
+  .get-card-price {
+    font-family: var(--font-body);
+    font-size: 13px;
+    color: var(--color-forest);
+    font-weight: 600;
+    margin-top: 4px;
+  }
+</style>

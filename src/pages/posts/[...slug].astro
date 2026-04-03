@@ -1,0 +1,50 @@
+---
+import Post from '../../layouts/Post.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts');
+  return posts.map(post => ({
+    params: { slug: post.id },
+    props: { post }
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+// Auto-extract first YouTube embed URL from body (if no explicit video in frontmatter)
+const youtubeMatch = post.body?.match(/src="(https?:\/\/www\.youtube[^"]+)"/);
+const video = post.data.video || (youtubeMatch ? youtubeMatch[1] : undefined);
+
+// Get related posts (same category, excluding current)
+const allPosts = await getCollection('posts');
+const currentCategories = post.data.categories || [];
+const related = allPosts
+  .filter(p => p.id !== post.id)
+  .filter(p => (p.data.categories || []).some(c => currentCategories.includes(c)))
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 3)
+  .map(p => ({
+    title: p.data.title,
+    slug: p.id,
+    categories: p.data.categories || [],
+    image: p.data.image,
+  }));
+---
+
+<Post
+  title={post.data.title}
+  date={post.data.date}
+  categories={post.data.categories}
+  tags={post.data.tags}
+  image={post.data.image}
+  subtitle={post.data.subtitle}
+  video={video}
+  verdict={post.data.verdict}
+  product={post.data.product}
+  downloads={post.data.downloads}
+  relatedPosts={related}
+>
+  <Content />
+</Post>

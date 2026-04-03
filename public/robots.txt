@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://fumbletable.com/sitemap-index.xml

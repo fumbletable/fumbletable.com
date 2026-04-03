@@ -1,0 +1,33 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const posts = await getCollection('posts');
+
+const tagMap = new Map<string, number>();
+posts.forEach(post => {
+  (post.data.tags || []).forEach(tag => {
+    tagMap.set(tag, (tagMap.get(tag) || 0) + 1);
+  });
+});
+
+const tags = [...tagMap.entries()]
+  .sort((a, b) => b[1] - a[1]);
+---
+
+<Base title="Tags — Fumble Table">
+  <section class="max-w-[var(--width-narrow)] mx-auto px-6 py-12">
+    <h1 class="font-[var(--font-display)] text-4xl font-bold text-forest mb-8">Tags</h1>
+
+    <div class="flex flex-wrap gap-3">
+      {tags.map(([name, count]) => (
+        <a
+          href={`/tags/${name.toLowerCase().replace(/\s+/g, '-')}/`}
+          class="px-4 py-2 bg-ivory-dark text-muted rounded-full hover:bg-forest hover:text-ivory transition-colors text-sm"
+        >
+          {name} <span class="text-muted-light ml-1">({count})</span>
+        </a>
+      ))}
+    </div>
+  </section>
+</Base>
