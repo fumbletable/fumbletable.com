@@ -9,6 +9,7 @@ import '../styles/global.css';
 
 const { title, description = 'Fumble Table — reviews, publishing, and running the game anyway. OSR, indie RPGs, and Olde Swords Reign.', ogImage } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const ogImageURL = ogImage || new URL('/img/og-default.png', Astro.site).toString();
 const currentPath = Astro.url.pathname;
 ---
 
@@ -22,7 +23,8 @@ const currentPath = Astro.url.pathname;
 
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    {ogImage && <meta property="og:image" content={ogImage} />}
+    <meta property="og:image" content={ogImageURL} />
+    <meta property="og:url" content={canonicalURL} />
     <meta property="og:type" content="website" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
