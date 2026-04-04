@@ -3,6 +3,7 @@ title: "Incandescent Grottoes: Why This Module Is Perfect for Your Campaign"
 date: 2024-06-15 12:00:00 +0000
 categories: ["Reviews"]
 tags: [incandescent grottoes, old school essentials, gavin norman, osr, dungeons, necrotic gnome]
+image: /img/posts/incandescent-grottoes.png
 ---
 
 This is an amazing module. Play it with B/X, Old School Essentials, Basic Fantasy, or even 5e if your players understand they might actually die. Let's get into it.

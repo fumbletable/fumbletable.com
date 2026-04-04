@@ -3,6 +3,7 @@ title: "Do Not Let Us Die: D&D Village Building in One Night"
 date: 2024-07-13 12:00:00 +0000
 categories: ["Reviews"]
 tags: [village building, mini-game, cone of negative energy, hexkit, osr]
+image: /img/posts/do-not-let-us-die.png
 ---
 
 This is a bit weird. It's not a game, not an adventure, not a setting. If you took all three and mushed them together, the intersection in the middle - that's where this sits.

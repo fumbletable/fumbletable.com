@@ -3,6 +3,7 @@ title: "Imperial Vault 19: The Perfect One-Shot Adventure"
 date: 2024-07-06 12:00:00 +0000
 categories: ["Reviews"]
 tags: [one-shot, adventure, dungeon-age, osr, dnd]
+image: /img/posts/imperial-vault-19.png
 ---
 
 A grieving widow begs you to save her baby. A hedge witch stole the infant and is using its tears to make alchemical potions. Your players will bite on that immediately.

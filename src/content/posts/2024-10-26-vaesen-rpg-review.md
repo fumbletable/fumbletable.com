@@ -3,6 +3,7 @@ title: "Vaesen RPG Review: Dark Folklore, Mystery, and Why You Should Play"
 date: 2024-10-26 12:00:00 +0000
 categories: ["Reviews"]
 tags: [vaesen, free league, year zero engine, nordic horror, mystery rpg, horror rpg]
+image: /img/posts/vaesen.png
 ---
 
 I was unsure about this one at first. A Nordic horror RPG set in 19th century Scandinavia? Sounded niche. Now I can't wait to run it.

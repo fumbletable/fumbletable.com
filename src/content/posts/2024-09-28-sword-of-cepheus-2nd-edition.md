@@ -3,6 +3,7 @@ title: "Sword of Cepheus 2nd Edition: The Sword & Sorcery RPG That Made Me Read 
 date: 2024-09-28 12:00:00 +0000
 categories: ["Reviews"]
 tags: [sword and sorcery, cepheus, stellagama, rpg review, character creation]
+image: /img/posts/sword-of-cepheus-2e.png
 ---
 
 I can't normally read big PDFs on a tablet. Once you get over 100 pages, I need a physical copy. This thing is 365 pages. I read the entire thing in a weekend.

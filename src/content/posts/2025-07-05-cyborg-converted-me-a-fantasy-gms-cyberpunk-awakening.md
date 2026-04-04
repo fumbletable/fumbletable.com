@@ -3,6 +3,7 @@ title: "CY_BORG Converted Me: A Fantasy GM's Cyberpunk Awakening"
 date: 2025-07-05 12:00:00 +0000
 categories: ["Reviews"]
 tags: [borg, cyberpunk, free-league, reviews]
+image: /img/posts/cy-borg.png
 ---
 
 CY_BORG was the BORG game I was least enthusiastic to review. Nothing against cyberpunk - I've enjoyed cyberpunk games - but it always felt like a leap too far. Learning an entire subgenre AND a game system? That was until I read this book.

@@ -3,6 +3,7 @@ title: "The Bruja, The Beast, and The Barrow: A One-Shot That Keeps Giving"
 date: 2024-10-05 12:00:00 +0000
 categories: ["Reviews"]
 tags: [one-shot, gásel, campaign hooks, modules, osr]
+image: /img/posts/bruja-beast-barrow.png
 ---
 
 Most one-shot modules are set and forget. You run them, have fun, move on. This one's different. The Bruja, The Beast, and The Barrow by Gásel gives you fodder for your entire campaign in just a few pages.
