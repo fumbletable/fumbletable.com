@@ -5,6 +5,7 @@ title: "Whitehack: So Much More Than a Retro Clone"
 date: 2024-05-30 12:00:00 +0000
 categories: ["Reviews"]
 tags: [whitehack, osr, rules-light, reviews]
+image: /img/posts/whitehack.png
 ---
 
 Whitehack is awesome. It's so much more than a retro clone. Classes work differently to anything you've probably played. It has cool mechanics. It doesn't even need to be fantasy - the author has a sci-fi setup. You could play any setting using this system.

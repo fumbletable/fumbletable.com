@@ -5,6 +5,7 @@ title: "Curse of the Ganshaggr: Free, Beautiful, and Weird as Hell"
 date: 2024-05-11 12:00:00 +0000
 categories: ["Reviews"]
 tags: [osr, adventures, free-adventures, gus-l, reviews]
+image: /img/posts/curse-of-the-ganshoggr.png
 ---
 
 A beautiful module. Free. About a killer goose. One of the most fun things I've read in a long time.

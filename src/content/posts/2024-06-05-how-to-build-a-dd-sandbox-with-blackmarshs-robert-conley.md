@@ -5,6 +5,7 @@ title: "Interview: Robert Conley on Building Sandboxes and Blackmarsh"
 date: 2024-06-05 12:00:00 +0000
 categories: ["How To"]
 tags: [interviews, blackmarsh, sandbox, robert-conley]
+image: /img/posts/robert-conley.png
 ---
 
 I got the author of Blackmarsh on the channel - my favourite ever setting. Robert Conley created the free setting that changed how I think about sandbox play.

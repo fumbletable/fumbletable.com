@@ -5,6 +5,7 @@ title: "Interview: Merry Mushmen on Hounds of Hendenburg & The Obsidian Keep"
 date: 2024-06-06 12:00:00 +0000
 categories: ["Resources"]
 tags: [merry-mushmen, interviews, kickstarter, osr]
+image: /img/posts/merry-mushmen.png
 ---
 
 A chat with the creators behind two adventures being Kickstarted by the Merry Mushmen: Horrendous Hounds of Hendenburg by Liam Pigeon-Quinlan and Raiding the Obsidian Keep by Joseph R Lewis.
