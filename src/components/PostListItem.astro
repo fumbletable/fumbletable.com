@@ -1,0 +1,102 @@
+---
+/*
+ * One row in a post list — thumbnail left, text right.
+ *
+ * Extracted from archive.astro so the archive and the section pages
+ * (/play, /reading, /making, /method) share a single implementation.
+ * Spacing is in explicit pixels: the 17px base font-size makes Tailwind's
+ * rem utilities drift ~6% from the mockup values.
+ */
+interface Props {
+  title: string;
+  date: Date;
+  slug: string;
+  categories?: string[];
+  tags?: string[];
+  image?: string;
+  excerpt?: string;
+  /* Set on pages that filter client-side (the archive). */
+  filterable?: boolean;
+}
+
+const {
+  title, date, slug, categories = [], tags = [], image, excerpt, filterable = false
+} = Astro.props;
+
+const formattedDate = date.toLocaleDateString('en-GB', {
+  day: 'numeric', month: 'long', year: 'numeric'
+});
+const category = categories[0] || '';
+---
+
+<a
+  href={`/posts/${slug}/`}
+  class="post-list-item group block"
+  data-title={filterable ? title.toLowerCase() : undefined}
+  data-categories={filterable ? categories.map(c => c.toLowerCase()).join(',') : undefined}
+>
+  <div class="grid grid-cols-1 sm:grid-cols-[200px_1fr] gap-4 sm:gap-7 py-7 border-b border-muted/[0.12]">
+    <div class="post-list-image">
+      {image ? (
+        <img src={image} alt="" loading="lazy" />
+      ) : (
+        <div class="placeholder">{category || 'FT'}</div>
+      )}
+    </div>
+    <div>
+      <div class="flex items-center gap-3 mb-1.5">
+        {category && <span class="font-[var(--font-body)] text-xs text-amber uppercase tracking-[0.12em] font-semibold">{category}</span>}
+        {category && <span class="w-[3px] h-[3px] rounded-full bg-muted/40"></span>}
+        <span class="font-[var(--font-body)] text-[13px] text-muted/70">{formattedDate}</span>
+      </div>
+      <h3 class="font-[var(--font-display)] font-bold text-[22px] !leading-[1.3] text-ink group-hover:text-forest transition-colors mb-2">{title}</h3>
+      {excerpt && (
+        <p class="text-[15px] text-muted leading-[1.6] line-clamp-2">{excerpt}</p>
+      )}
+      {tags.length > 0 && (
+        <div class="flex flex-wrap gap-2 mt-2.5">
+          {tags.slice(0, 4).map(tag => (
+            <span class="font-[var(--font-body)] text-xs text-muted bg-muted/10 px-2.5 py-0.5 rounded-xl">{tag}</span>
+          ))}
+        </div>
+      )}
+    </div>
+  </div>
+</a>
+
+<style>
+  .post-list-image {
+    aspect-ratio: 16 / 9;
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--color-ink);
+  }
+
+  .post-list-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .post-list-image .placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--color-muted);
+    text-align: center;
+    line-height: 1.2;
+  }
+
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>

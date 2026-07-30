@@ -1,7 +1,7 @@
 ---
 title: "Barry's Heartbreaking Tale: The 4 Pillars in Action"
 date: 2023-11-11 12:00:00 +0000
-categories: ["Methodology"]
+categories: [Play]
 tags: [sandbox, 4 pillars, campaign diary, actual play, gm advice, old school]
 ---
 

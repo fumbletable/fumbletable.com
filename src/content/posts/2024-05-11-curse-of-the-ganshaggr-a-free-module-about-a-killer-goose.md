@@ -3,7 +3,7 @@ redirect_from:
   - /fantastic-free-dd-adventure-curse-of-the-ganshaggr/
 title: "Curse of the Ganshaggr: Free, Beautiful, and Weird as Hell"
 date: 2024-05-11 12:00:00 +0000
-categories: ["Reviews"]
+categories: [Reading]
 tags: [osr, adventures, free-adventures, gus-l, reviews]
 image: /img/posts/curse-of-the-ganshoggr.png
 ---

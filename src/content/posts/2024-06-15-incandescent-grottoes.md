@@ -1,7 +1,7 @@
 ---
 title: "Incandescent Grottoes: Why This Module Is Perfect for Your Campaign"
 date: 2024-06-15 12:00:00 +0000
-categories: ["Reviews"]
+categories: [Reading]
 tags: [incandescent grottoes, old school essentials, gavin norman, osr, dungeons, necrotic gnome]
 image: /img/posts/incandescent-grottoes.png
 ---

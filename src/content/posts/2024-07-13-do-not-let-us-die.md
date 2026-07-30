@@ -1,7 +1,7 @@
 ---
 title: "Do Not Let Us Die: D&D Village Building in One Night"
 date: 2024-07-13 12:00:00 +0000
-categories: ["Reviews"]
+categories: [Reading]
 tags: [village building, mini-game, cone of negative energy, hexkit, osr]
 image: /img/posts/do-not-let-us-die.png
 ---

@@ -1,7 +1,7 @@
 ---
 title: "Vaesen RPG Review: Dark Folklore, Mystery, and Why You Should Play"
 date: 2024-10-26 12:00:00 +0000
-categories: ["Reviews"]
+categories: [Reading]
 tags: [vaesen, free league, year zero engine, nordic horror, mystery rpg, horror rpg]
 image: /img/posts/vaesen.png
 ---

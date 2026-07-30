@@ -3,7 +3,7 @@ redirect_from:
   - /the-evils-of-illmire-one-of-the-best-dd-adventures/
 title: "The Evils of Illmire: A Module That Does All the Heavy Lifting"
 date: 2024-06-03 12:00:00 +0000
-categories: ["Reviews"]
+categories: [Reading]
 tags: [osr, adventures, ose, reviews]
 image: /img/posts/evils-of-illmire.png
 ---

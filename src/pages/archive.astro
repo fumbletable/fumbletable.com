@@ -1,22 +1,17 @@
 ---
 import Base from '../layouts/Base.astro';
+import PostListItem from '../components/PostListItem.astro';
 import { getCollection } from 'astro:content';
+import { SECTIONS, excerptFor } from '../lib/sections';
 
 const posts = (await getCollection('posts'))
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 
-// Build category counts
-const categoryMap = new Map<string, number>();
-posts.forEach(post => {
-  (post.data.categories || []).forEach(cat => {
-    categoryMap.set(cat, (categoryMap.get(cat) || 0) + 1);
-  });
-});
-
-// Sort categories by count descending
-const categories = [...categoryMap.entries()]
-  .sort((a, b) => b[1] - a[1])
-  .slice(0, 8);
+// Filter tabs follow the section order in SECTIONS, not post counts — the nav
+// and these tabs should present the site in the same order every time.
+const categories: [string, number][] = SECTIONS
+  .map(s => [s.name, posts.filter(p => (p.data.categories || []).includes(s.name)).length] as [string, number])
+  .filter(([, count]) => count > 0);
 ---
 
 <Base title="All Posts — Fumble Table" description="Reviews, OSWR development, GM advice, and everything in between.">
@@ -59,51 +54,18 @@ const categories = [...categoryMap.entries()]
 
   <!-- Post List -->
   <div class="max-w-[var(--width-site)] mx-auto px-[20px] md:px-[40px] pb-16 md:pb-20" id="post-list">
-    {posts.map(post => {
-      const formattedDate = post.data.date.toLocaleDateString('en-GB', {
-        day: 'numeric', month: 'long', year: 'numeric'
-      });
-      const category = (post.data.categories || [])[0] || '';
-      const tags = post.data.tags || [];
-      const excerpt = post.data.excerpt || post.data.subtitle || post.body?.split('\n').find((l: string) => l.trim().length > 30 && !l.startsWith('#') && !l.startsWith('<'))?.trim().slice(0, 180) || '';
-
-      return (
-        <a
-          href={`/posts/${post.id}/`}
-          class="post-list-item group block"
-          data-title={post.data.title.toLowerCase()}
-          data-categories={(post.data.categories || []).map(c => c.toLowerCase()).join(',')}
-        >
-          <div class="grid grid-cols-1 sm:grid-cols-[200px_1fr] gap-4 sm:gap-7 py-7 border-b border-muted/[0.12]">
-            <div class="post-list-image">
-              {post.data.image ? (
-                <img src={post.data.image} alt="" loading="lazy" />
-              ) : (
-                <div class="placeholder">{category || 'FT'}</div>
-              )}
-            </div>
-            <div>
-              <div class="flex items-center gap-3 mb-1.5">
-                {category && <span class="font-[var(--font-body)] text-xs text-amber uppercase tracking-[0.12em] font-semibold">{category}</span>}
-                {category && <span class="w-[3px] h-[3px] rounded-full bg-muted/40"></span>}
-                <span class="font-[var(--font-body)] text-[13px] text-muted/70">{formattedDate}</span>
-              </div>
-              <h3 class="font-[var(--font-display)] font-bold text-[22px] !leading-[1.3] text-ink group-hover:text-forest transition-colors mb-2">{post.data.title}</h3>
-              {excerpt && (
-                <p class="text-[15px] text-muted leading-[1.6] line-clamp-2">{excerpt}</p>
-              )}
-              {tags.length > 0 && (
-                <div class="flex flex-wrap gap-2 mt-2.5">
-                  {tags.slice(0, 4).map(tag => (
-                    <span class="font-[var(--font-body)] text-xs text-muted bg-muted/10 px-2.5 py-0.5 rounded-xl">{tag}</span>
-                  ))}
-                </div>
-              )}
-            </div>
-          </div>
-        </a>
-      );
-    })}
+    {posts.map(post => (
+      <PostListItem
+        title={post.data.title}
+        date={post.data.date}
+        slug={post.id}
+        categories={post.data.categories}
+        tags={post.data.tags}
+        image={post.data.image}
+        excerpt={excerptFor(post.data, post.body)}
+        filterable
+      />
+    ))}
 
     <div id="no-results" class="hidden py-16 text-center text-muted italic">
       No posts match your search.
@@ -113,33 +75,8 @@ const categories = [...categoryMap.entries()]
 </Base>
 
 <style>
-  .post-list-image {
-    aspect-ratio: 16 / 9;
-    border-radius: 8px;
-    overflow: hidden;
-    background: var(--color-ink);
-  }
-
-  .post-list-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-
-  .post-list-image .placeholder {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: var(--font-display);
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--color-muted);
-    text-align: center;
-    line-height: 1.2;
-  }
+  /* Row styles (.post-list-image, .placeholder, .line-clamp-2) live with the
+     markup in components/PostListItem.astro. */
 
   .filter-tab {
     font-family: var(--font-body);
@@ -173,13 +110,6 @@ const categories = [...categoryMap.entries()]
 
   .filter-tab.active .filter-count {
     color: var(--color-amber);
-  }
-
-  .line-clamp-2 {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
   }
 </style>
 

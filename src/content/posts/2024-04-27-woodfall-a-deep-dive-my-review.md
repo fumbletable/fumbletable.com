@@ -3,7 +3,7 @@ redirect_from:
   - /woodfall-a-deep-dive-my-review/
 title: "Woodfall: The Micro-Setting That Changed How I See RPG Design"
 date: 2024-04-27 12:00:00 +0000
-categories: ["Reviews"]
+categories: [Reading]
 tags: [osr, settings, lazy-lich, reviews]
 ---
 

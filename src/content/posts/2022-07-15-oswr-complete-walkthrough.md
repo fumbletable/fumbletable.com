@@ -1,7 +1,7 @@
 ---
 title: "Olde Swords Reign: The Complete Walkthrough"
 date: 2022-07-15 12:00:00 +0000
-categories: ["OSWR"]
+categories: [Making]
 tags: [olde-swords-reign, osr, rules, 5e, old-school]
 ---
 

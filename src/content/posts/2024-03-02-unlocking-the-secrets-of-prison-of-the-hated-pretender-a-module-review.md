@@ -3,7 +3,7 @@ redirect_from:
   - /unlocking-the-secrets-of-prison-of-the-hated-pretender-a-module-review/
 title: "Prison of the Hated Pretender: The Module That Teaches You to GM"
 date: 2024-03-02 12:00:00 +0000
-categories: ["Reviews"]
+categories: [Reading]
 tags: [osr, adventures, gus-l, reviews]
 ---
 

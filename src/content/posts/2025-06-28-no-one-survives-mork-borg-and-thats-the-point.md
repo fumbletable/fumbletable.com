@@ -1,7 +1,7 @@
 ---
 title: "No One Survives MÖRK BORG... And That's the Point"
 date: 2025-06-28 12:00:00 +0000
-categories: ["Reviews"]
+categories: [Reading]
 tags: [borg, osr, free-league, reviews]
 image: /img/posts/mork-borg.png
 ---

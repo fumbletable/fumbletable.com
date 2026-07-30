@@ -1,7 +1,7 @@
 ---
 title: "I'm Giving My Game Away - Blame Basic Fantasy"
 date: 2023-08-26 12:00:00 +0000
-categories: ["OSWR"]
+categories: [Making]
 tags: [oswr, announcement, open-source, creative-commons, basic-fantasy]
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: "Sandbox D&D Prep: The 4 Pillars of Dynamic Campaigns"
 date: 2023-11-05 12:00:00 +0000
-categories: ["Methodology"]
+categories: [Method]
 tags: [sandbox, campaign prep, gm advice, osr, open table, worldbuilding]
 ---
 

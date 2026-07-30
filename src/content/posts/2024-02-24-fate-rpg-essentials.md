@@ -1,7 +1,7 @@
 ---
 title: "Fate RPG Essentials: Fiction-First Gaming in 10 Minutes"
 date: 2024-02-24 12:00:00 +0000
-categories: ["Reviews"]
+categories: [Reading]
 tags: [fate, rpg-review, narrative, story-games, evil-hat]
 ---
 

@@ -3,7 +3,7 @@ redirect_from:
   - /a-deep-dive-into-old-swords-reign-transforming-5e-into-an-old-school-rpg-experience/
 title: "Olde Swords Reign: Past, Present, and Future"
 date: 2023-08-12 12:00:00 +0000
-categories: ["Olde Swords Reign"]
+categories: [Making]
 tags: [olde-swords-reign, design, game-design]
 ---
 

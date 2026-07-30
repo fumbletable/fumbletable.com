@@ -1,7 +1,7 @@
 ---
 title: "Roll Any Character You Want: The David Hoffhassle Method"
 date: 2023-11-18 12:00:00 +0000
-categories: ["OSWR"]
+categories: [Making]
 tags: [olde-swords-reign, character-creation, osr, rpg]
 ---
 

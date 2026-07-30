@@ -1,7 +1,7 @@
 ---
 title: "Sword of Cepheus 2nd Edition: The Sword & Sorcery RPG That Made Me Read Fafhrd"
 date: 2024-09-28 12:00:00 +0000
-categories: ["Reviews"]
+categories: [Reading]
 tags: [sword and sorcery, cepheus, stellagama, rpg review, character creation]
 image: /img/posts/sword-of-cepheus-2e.png
 ---

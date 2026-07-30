@@ -3,7 +3,7 @@ redirect_from:
   - /reading-every-dnd-rulebook-in-order/
 title: "I'm Reading Every D&D Rulebook in Order. Starting From 1974."
 date: 2026-03-08 09:00:00 +0000
-categories: ["How To"]
+categories: [Reading]
 tags: [dnd, osr, ad&d, reading, shorts]
 image: /img/posts/dnd-reading-odd-booklets.jpg
 ---

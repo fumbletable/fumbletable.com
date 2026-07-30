@@ -1,7 +1,7 @@
 ---
 title: "This FREE D&D Adventure Has Everything: The Blackapple Brugh Review"
 date: 2026-01-29 21:00:00 +0000
-categories: ["Reviews"]
+categories: [Reading]
 tags: [basic fantasy, osr, free adventure, fairy tale, dungeons, kyle hettinger]
 image: /img/posts/blackapple-brugh.png
 ---

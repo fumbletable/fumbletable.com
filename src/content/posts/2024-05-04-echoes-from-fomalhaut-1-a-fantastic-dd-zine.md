@@ -3,7 +3,7 @@ redirect_from:
   - /echoes-from-fomalhaut-1-a-fantastic-dd-zine/
 title: "Echoes from Fomalhaut #1: The Writing Is Just That Good"
 date: 2024-05-04 12:00:00 +0000
-categories: ["Reviews"]
+categories: [Reading]
 tags: [osr, zines, gabor-lux, adventures, reviews]
 ---
 

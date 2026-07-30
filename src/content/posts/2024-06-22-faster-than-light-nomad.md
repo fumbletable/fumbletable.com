@@ -1,7 +1,7 @@
 ---
 title: "Faster Than Light: Nomad - A Sci-Fi Toolkit That Gets It Right"
 date: 2024-06-22 12:00:00 +0000
-categories: ["Reviews"]
+categories: [Reading]
 tags: [sci-fi, stellagama, rpg-review, space-opera, toolkit]
 image: /img/posts/faster-than-light-nomad.png
 ---

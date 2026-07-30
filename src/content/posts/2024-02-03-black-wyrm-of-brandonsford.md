@@ -1,7 +1,7 @@
 ---
 title: "The Black Wyrm of Brandonsford: The Perfect Starter Adventure"
 date: 2024-02-03 12:00:00 +0000
-categories: ["Reviews"]
+categories: [Reading]
 tags: [brandonsford, osr, starter adventure, dungeons, bx, chance dudinack]
 ---
 

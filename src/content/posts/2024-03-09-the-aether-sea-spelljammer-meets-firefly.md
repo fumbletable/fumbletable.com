@@ -1,7 +1,7 @@
 ---
 title: "The Aether Sea: Spelljammer Meets Firefly"
 date: 2024-03-09 12:00:00 +0000
-categories: ["Resources"]
+categories: [Reading]
 tags: [fate rpg, space fantasy, settings, firefly, spelljammer, aether sea]
 ---
 

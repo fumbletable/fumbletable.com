@@ -1,7 +1,7 @@
 ---
 title: "No Artpunk Vol. 1: Free Classic D&D Adventures That Actually Work"
 date: 2024-06-30 12:00:00 +0000
-categories: ["Reviews"]
+categories: [Reading]
 tags: [adventure, free, osr, dnd, classic]
 image: /img/posts/no-artpunk-vol-1.png
 ---

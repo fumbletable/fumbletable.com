@@ -1,7 +1,7 @@
 ---
 title: "Demon Driven to the Maw: A D&D One-Shot Full of Chaos"
 date: 2024-08-03 12:00:00 +0000
-categories: ["Reviews"]
+categories: [Reading]
 tags: [one-shot, brad kerr, modules, horror, osr]
 image: /img/posts/demon-driven-to-the-maw.png
 ---

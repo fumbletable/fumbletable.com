@@ -3,7 +3,7 @@ redirect_from:
   - /unleashing-the-hounds-a-review-of-hounds-of-hendenburg/
 title: "Hounds of Hendenburg: A Free Adventure For Your War Chest"
 date: 2024-04-13 12:00:00 +0000
-categories: ["Reviews"]
+categories: [Reading]
 tags: [osr, adventures, knave, free-adventures, reviews]
 ---
 

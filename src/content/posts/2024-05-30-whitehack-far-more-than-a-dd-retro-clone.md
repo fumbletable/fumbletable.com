@@ -3,7 +3,7 @@ redirect_from:
   - /whitehack-far-more-than-a-dd-retro-clone/
 title: "Whitehack: So Much More Than a Retro Clone"
 date: 2024-05-30 12:00:00 +0000
-categories: ["Reviews"]
+categories: [Reading]
 tags: [whitehack, osr, rules-light, reviews]
 image: /img/posts/whitehack.png
 ---

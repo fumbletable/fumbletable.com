@@ -3,7 +3,7 @@ redirect_from:
   - /tomb-of-the-serpent-king/
 title: "Tomb of the Serpent King: The Best Free Starter Dungeon"
 date: 2023-11-26 12:00:00 +0000
-categories: ["Reviews"]
+categories: [Reading]
 tags: [osr, adventures, free-adventures, starter-dungeons, reviews]
 ---
 

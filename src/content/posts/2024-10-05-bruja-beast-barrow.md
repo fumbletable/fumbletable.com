@@ -1,7 +1,7 @@
 ---
 title: "The Bruja, The Beast, and The Barrow: A One-Shot That Keeps Giving"
 date: 2024-10-05 12:00:00 +0000
-categories: ["Reviews"]
+categories: [Reading]
 tags: [one-shot, gásel, campaign hooks, modules, osr]
 image: /img/posts/bruja-beast-barrow.png
 ---

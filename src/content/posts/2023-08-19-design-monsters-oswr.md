@@ -1,7 +1,7 @@
 ---
 title: "Design Unique Monsters in Minutes: The OSWR Method"
 date: 2023-08-19 12:00:00 +0000
-categories: ["OSWR"]
+categories: [Making]
 tags: [olde-swords-reign, monsters, game-design, dm-tools, osr]
 ---
 

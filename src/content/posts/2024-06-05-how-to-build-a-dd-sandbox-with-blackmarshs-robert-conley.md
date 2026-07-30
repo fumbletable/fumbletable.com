@@ -3,7 +3,7 @@ redirect_from:
   - /how-to-build-a-dd-sandbox-with-blackmarshs-robert-conley/
 title: "Interview: Robert Conley on Building Sandboxes and Blackmarsh"
 date: 2024-06-05 12:00:00 +0000
-categories: ["How To"]
+categories: [Reading]
 tags: [interviews, blackmarsh, sandbox, robert-conley]
 image: /img/posts/robert-conley.png
 ---

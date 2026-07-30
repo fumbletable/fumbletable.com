@@ -17,15 +17,33 @@ const { Content } = await render(post);
 const youtubeMatch = post.body?.match(/src="(https?:\/\/www\.youtube[^"]+)"/);
 const video = post.data.video || (youtubeMatch ? youtubeMatch[1] : undefined);
 
-// Get related posts (same category, excluding current)
+/*
+ * Related posts — rank by shared tags first, then fall back to the section.
+ *
+ * Sections are deliberately coarse (Reading alone holds ~35 posts), so
+ * "same category" on its own picks near-randomly. Tags carry the actual
+ * topic, so a post about free adventures should surface other free
+ * adventures, not whatever happened to be published most recently.
+ */
 const allPosts = await getCollection('posts');
 const currentCategories = post.data.categories || [];
+const currentTags = new Set(post.data.tags || []);
+
 const related = allPosts
   .filter(p => p.id !== post.id)
-  .filter(p => (p.data.categories || []).some(c => currentCategories.includes(c)))
-  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
-  .slice(0, 3)
   .map(p => ({
+    post: p,
+    sharedTags: (p.data.tags || []).filter(t => currentTags.has(t)).length,
+    sameSection: (p.data.categories || []).some(c => currentCategories.includes(c)),
+  }))
+  .filter(c => c.sharedTags > 0 || c.sameSection)
+  .sort((a, b) =>
+    b.sharedTags - a.sharedTags ||
+    Number(b.sameSection) - Number(a.sameSection) ||
+    b.post.data.date.getTime() - a.post.data.date.getTime()
+  )
+  .slice(0, 3)
+  .map(({ post: p }) => ({
     title: p.data.title,
     slug: p.id,
     categories: p.data.categories || [],

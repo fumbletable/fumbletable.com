@@ -3,7 +3,7 @@ redirect_from:
   - /the-merry-mushmen-kickstarter-horrendous-hounds-of-hendenburg-and-raiding-the-obsidian-keep/
 title: "Interview: Merry Mushmen on Hounds of Hendenburg & The Obsidian Keep"
 date: 2024-06-06 12:00:00 +0000
-categories: ["Resources"]
+categories: [Reading]
 tags: [merry-mushmen, interviews, kickstarter, osr]
 image: /img/posts/merry-mushmen.png
 ---

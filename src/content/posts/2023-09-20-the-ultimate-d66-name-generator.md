@@ -3,7 +3,7 @@ redirect_from:
   - /the-ultimate-d66-name-generator/
 title: "The Ultimate d66 Name Generator!"
 date: 2023-09-20 12:00:00 +0000
-categories: [Resources]
+categories: [Making]
 tags: [tables, generators, maze-rats]
 ---
 

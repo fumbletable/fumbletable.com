@@ -1,0 +1,65 @@
+---
+/*
+ * Section pages: /play, /reading, /making, /method
+ *
+ * getStaticPaths only ever emits the four slugs in SECTIONS, so this dynamic
+ * route cannot swallow unrelated paths. Explicit pages (/about, /archive,
+ * /oswr) take precedence over dynamic routes in Astro regardless.
+ */
+import Base from '../layouts/Base.astro';
+import PostListItem from '../components/PostListItem.astro';
+import { getCollection } from 'astro:content';
+import { SECTIONS, excerptFor } from '../lib/sections';
+
+export async function getStaticPaths() {
+  const posts = (await getCollection('posts'))
+    .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+  return SECTIONS.map((section) => ({
+    params: { section: section.slug },
+    props: {
+      section,
+      posts: posts.filter((p) => (p.data.categories || []).includes(section.name)),
+    },
+  }));
+}
+
+const { section, posts } = Astro.props;
+---
+
+<Base title={`${section.heading} — Fumble Table`} description={section.intro}>
+
+  <!-- Page Header -->
+  <div class="max-w-[var(--width-site)] mx-auto px-[20px] md:px-[40px] pt-8 md:pt-10 pb-5">
+    <h1 class="font-[var(--font-display)] font-black text-4xl md:text-[44px] text-ink mb-2 !leading-[1.7]">{section.heading}</h1>
+    <p class="font-[var(--font-body)] italic text-[17px] text-muted">{section.intro}</p>
+  </div>
+
+  <!-- Post List -->
+  <div class="max-w-[var(--width-site)] mx-auto px-[20px] md:px-[40px] pt-6 pb-16 md:pb-20">
+    {posts.length > 0 ? (
+      posts.map((post) => (
+        <PostListItem
+          title={post.data.title}
+          date={post.data.date}
+          slug={post.id}
+          categories={post.data.categories}
+          tags={post.data.tags}
+          image={post.data.image}
+          excerpt={excerptFor(post.data, post.body)}
+        />
+      ))
+    ) : (
+      <p class="font-[var(--font-body)] italic text-[17px] text-muted py-10 border-t border-muted/[0.12]">
+        Nothing here yet. It's coming.
+      </p>
+    )}
+
+    <div class="pt-10">
+      <a href="/archive" class="font-[var(--font-body)] text-[15px] text-amber hover:text-wood transition-colors">
+        Everything, in one list &rarr;
+      </a>
+    </div>
+  </div>
+
+</Base>

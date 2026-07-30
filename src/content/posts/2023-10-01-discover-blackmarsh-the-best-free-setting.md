@@ -1,7 +1,7 @@
 ---
 title: "Discover Blackmarsh: The Best Free D&D Setting"
 date: 2023-10-01 12:00:00 +0000
-categories: ["Resources"]
+categories: [Reading]
 tags: [blackmarsh, robert conley, free settings, sandbox, hex crawl, osr]
 ---
 

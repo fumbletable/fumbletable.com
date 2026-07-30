@@ -3,7 +3,7 @@ redirect_from:
   - /why-dd-fans-should-not-miss-knave-rpg-second-edition/
 title: "Knave 2e: The Most Value I've Ever Seen in an RPG Book"
 date: 2024-06-10 12:00:00 +0000
-categories: ["Reviews"]
+categories: [Reading]
 tags: [knave, osr, ben-milton, reviews]
 image: /img/posts/knave-2e.png
 ---

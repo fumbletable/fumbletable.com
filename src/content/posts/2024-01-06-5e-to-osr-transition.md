@@ -1,7 +1,7 @@
 ---
 title: "Should You Switch from 5e to OSR? A GM's Honest Take"
 date: 2024-01-06 12:00:00 +0000
-categories: ["Methodology"]
+categories: [Method]
 tags: [osr, 5e, gm advice, rulings over rules, principia apocrypha]
 ---
 

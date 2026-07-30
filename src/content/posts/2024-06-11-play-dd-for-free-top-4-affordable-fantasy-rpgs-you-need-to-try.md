@@ -3,7 +3,7 @@ redirect_from:
   - /play-dd-for-free-top-4-affordable-fantasy-rpgs-you-need-to-try/
 title: "Play D&D for Free: 4 Games Under a Tenner"
 date: 2024-06-11 12:00:00 +0000
-categories: ["Resources"]
+categories: [Reading]
 tags: [free-rpgs, osr, 5e, olde-swords-reign, basic-fantasy]
 image: /img/posts/play-dnd-for-free.png
 ---

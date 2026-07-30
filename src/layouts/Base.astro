@@ -6,6 +6,7 @@ interface Props {
 }
 
 import '../styles/global.css';
+import { SECTIONS } from '../lib/sections';
 
 const { title, description = 'Fumble Table — reviews, publishing, and running the game anyway. OSR, indie RPGs, and Olde Swords Reign.', ogImage } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
@@ -83,9 +84,10 @@ const currentPath = Astro.url.pathname;
         </a>
 
         <!-- Desktop nav -->
-        <div class="hidden md:flex items-center gap-[32px] font-[var(--font-body)] text-[15px] text-wood">
-          <a href="/archive" class:list={["hover:text-forest transition-colors", { "text-forest font-semibold": currentPath.startsWith('/archive') }]}>Reviews</a>
-          <a href="/oswr" class:list={["hover:text-forest transition-colors", { "text-forest font-semibold": currentPath.startsWith('/oswr') }]}>The Game</a>
+        <div class="hidden md:flex items-center gap-[28px] font-[var(--font-body)] text-[15px] text-wood">
+          {SECTIONS.map(s => (
+            <a href={`/${s.slug}`} class:list={["hover:text-forest transition-colors", { "text-forest font-semibold": currentPath.startsWith(`/${s.slug}`) }]}>{s.label}</a>
+          ))}
           <a href="/about" class:list={["hover:text-forest transition-colors", { "text-forest font-semibold": currentPath.startsWith('/about') }]}>About</a>
         </div>
 
@@ -100,9 +102,11 @@ const currentPath = Astro.url.pathname;
       <!-- Mobile nav -->
       <div id="mobile-menu" class="hidden md:hidden">
         <div class="pt-4 pb-2 flex flex-col gap-3 font-[var(--font-body)] text-[15px] text-wood">
-          <a href="/archive" class="hover:text-forest py-1">Reviews</a>
-          <a href="/oswr" class="hover:text-forest py-1">The Game</a>
+          {SECTIONS.map(s => (
+            <a href={`/${s.slug}`} class="hover:text-forest py-1">{s.label}</a>
+          ))}
           <a href="/about" class="hover:text-forest py-1">About</a>
+          <a href="/archive" class="hover:text-forest py-1">Everything</a>
         </div>
       </div>
     </header>

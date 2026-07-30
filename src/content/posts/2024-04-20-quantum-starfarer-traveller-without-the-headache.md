@@ -3,7 +3,7 @@ redirect_from:
   - /simplifying-space-adventures-with-quantum-starfarer/
 title: "Quantum Starfarer: Traveller Without The Headache"
 date: 2024-04-20 12:00:00 +0000
-categories: ["Reviews"]
+categories: [Reading]
 tags: [sci-fi, stellagama, cepheus, reviews]
 ---
 

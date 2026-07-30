@@ -33,6 +33,10 @@ const fullUrl = `https://fumbletable.com${target}`;
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="refresh" content={`0;url=${target}`} />
+    <!-- These stubs exist only to keep legacy Jekyll URLs alive. They must never
+         be indexed in their own right — the canonical points at the real post,
+         and astro.config.mjs keeps them out of the sitemap. -->
+    <meta name="robots" content="noindex, follow" />
     <link rel="canonical" href={fullUrl} />
     <title>Redirecting...</title>
   </head>

@@ -1,7 +1,7 @@
 ---
 title: "Free D&D Starter Adventures and How to Drop Them Into Blackmarsh"
 date: 2023-10-08 12:00:00 +0000
-categories: ["Resources"]
+categories: [Reading]
 tags: [blackmarsh, free adventures, basic fantasy, starter adventures, sandbox, osr]
 ---
 

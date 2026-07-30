@@ -1,7 +1,7 @@
 ---
 title: "CY_BORG Converted Me: A Fantasy GM's Cyberpunk Awakening"
 date: 2025-07-05 12:00:00 +0000
-categories: ["Reviews"]
+categories: [Reading]
 tags: [borg, cyberpunk, free-league, reviews]
 image: /img/posts/cy-borg.png
 ---

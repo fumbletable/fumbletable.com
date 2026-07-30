@@ -3,7 +3,7 @@ redirect_from:
   - /desert-angel-fiasco-a-dungeon-age-adventure/
 title: "Desert Angel Fiasco: A One-Shot Adventure I'd Run Again Tomorrow"
 date: 2024-03-30 12:00:00 +0000
-categories: ["Reviews"]
+categories: [Reading]
 tags: [osr, adventures, one-shots, dungeon-age, reviews]
 ---
 

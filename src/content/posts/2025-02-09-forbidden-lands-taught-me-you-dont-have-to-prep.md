@@ -1,7 +1,7 @@
 ---
 title: "D&D Taught Me to Prep... Forbidden Lands Taught Me You Don't Have To"
 date: 2025-02-09 12:00:00 +0000
-categories: ["How To"]
+categories: [Method]
 tags: [forbidden-lands, free-league, prep, methodology]
 image: /img/posts/forbidden-lands.png
 ---

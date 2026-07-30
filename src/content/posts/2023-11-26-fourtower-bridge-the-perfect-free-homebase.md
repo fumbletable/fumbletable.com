@@ -1,7 +1,7 @@
 ---
 title: "Fourtower Bridge: The Perfect Free D&D Homebase"
 date: 2023-11-26 12:00:00 +0000
-categories: ["Resources"]
+categories: [Reading]
 tags: [free adventures, starter town, homebase, osr, low prep]
 ---
 

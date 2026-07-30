@@ -1,7 +1,7 @@
 ---
 title: "Imperial Vault 19: The Perfect One-Shot Adventure"
 date: 2024-07-06 12:00:00 +0000
-categories: ["Reviews"]
+categories: [Reading]
 tags: [one-shot, adventure, dungeon-age, osr, dnd]
 image: /img/posts/imperial-vault-19.png
 ---

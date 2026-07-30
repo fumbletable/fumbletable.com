@@ -3,7 +3,7 @@ redirect_from:
   - /delve-into-an-osr-masterpiece-a-review-of-the-hole-in-the-oak/
 title: "The Hole in the Oak: A Masterclass in Adventure Design"
 date: 2024-04-06 12:00:00 +0000
-categories: ["Reviews"]
+categories: [Reading]
 tags: [ose, osr, reviews, gavin-norman]
 image: /img/posts/hole-in-the-oak.png
 ---

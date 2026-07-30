@@ -3,7 +3,7 @@ redirect_from:
   - /dive-into-the-apocalypse-mutant-mondays-ep-1-introduction-to-mutant-year-zero/
 title: "Mutant Year Zero: Why I'm Running a Mega Campaign"
 date: 2024-05-06 12:00:00 +0000
-categories: ["Mutant Mondays"]
+categories: [Play]
 tags: [mutant-year-zero, free-league, year-zero-engine]
 ---
 
