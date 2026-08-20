@@ -3,6 +3,7 @@ title: "I Can't Picture Anything, So Solo Play Should Have Been Closed To Me"
 date: 2026-08-20 09:00:00 +0000
 categories: [Play]
 tags: [aphantasia, solo-rpg]
+image: /img/posts/aphantasia-solo-play.png
 ---
 My oldest daughter came in and told me she had aphantasia.
 
